@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>App Updates</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+
+        .version {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .meta {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .force {
+            color: #f87171;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📱 App Updates</h1>
+
+    {% for app in apps %}
+        <div class="card">
+            <div class="version">
+                Version: {{ app.version_name }} (Code: {{ app.version_code }})
+            </div>
+
+            <div class="meta">
+                Uploaded: {{ app.uploaded_at }}
+            </div>
+
+            {% if app.force_update %}
+                <div class="force">⚠ Force Update Required</div>
+            {% endif %}
+
+            <a class="btn" href="{{ app.apk_file.url }}" download>
+                Download APK
+            </a>
+        </div>
+    {% empty %}
+        <p>No updates available.</p>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
